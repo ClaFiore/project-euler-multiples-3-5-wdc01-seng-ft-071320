@@ -1,49 +1,16 @@
 class Multiples
-    @@all = []
-    
-    def initialize(num)
-        @num = num
+    attr_reader :limit, :multiples
+  
+    def initialize(limit)
+      @limit = limit - 1
+      @multiples = collect_multiples
     end
-
-    def mult_of_3?
-        if @num % 3 == 0
-            return true
-        else
-            return false
-        end
+  
+    def collect_multiples
+      (1..limit).to_a.filter {|num| num % 3 == 0 || num % 5 == 0 }
     end
-
-    def mult_of_5?
-        if @num % 5 == 0
-            return true
-        else
-            return false
-        end
+  
+    def sum_multiples
+      multiples.sum
     end
-
-    def mult_3_or_5?
-        if mult_of_3? || mult_of_5?
-            return true
-        else
-            false
-        end
-    end
-
-    def self.all_multiples
-        if mult_3_or_5?
-            @@all << self
-            return @@all
-        end
-    end
-
-    def sum
-        self.all_multiples.sum
-    end
-
 end
-
-(1..10).each do |num|
-    Multiples.new(num)
-end
-
-puts Multiples.all_multiples
